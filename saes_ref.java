@@ -1,9 +1,6 @@
-import java.util.Arrays;
-import java.util.Scanner;
 import java.util.*;
-import java.util.regex.*;
 
-public class SimplifiedAdvancedEncryptionStandard {
+public class saes_ref {
 
 	private static final String[][] SBOX = { {"1001","0100","1010","1011"},{"1101","0001","1000","0101"},{"0110","0010","0000","0011"},{"1100","1110","1111","0111"} };
 	private static final String[][] SBOX_INV = { {"1010","0101","1001","1011"},{"0001","0111","1000","1111"},{"0110","0000","0010","0011"},{"1100","0100","1101","1110"} };
@@ -11,7 +8,7 @@ public class SimplifiedAdvancedEncryptionStandard {
 	private static int encryptionConstantMatrix[][] = { {1, 4}, {4, 1} };
 	private static int decryptionConstantMatrix[][] = { {9, 2}, {2, 9} };
 
-	public SimplifiedAdvancedEncryptionStandard(String key) {
+	public saes_ref(String key) {
 		generateKeys(key);
 	}
 
@@ -160,15 +157,15 @@ public class SimplifiedAdvancedEncryptionStandard {
 		System.out.print("Enter 16-bit binary form message for encryption: ");
 		msg = sc.next();
 
-		SimplifiedAdvancedEncryptionStandard simplifiedAdvancedEncryptionStandard = new SimplifiedAdvancedEncryptionStandard(key);
-		System.out.println(simplifiedAdvancedEncryptionStandard.getKeys());
+		saes_ref saes_ref = new saes_ref(key);
+		System.out.println(saes_ref.getKeys());
 
 		System.out.println("\n***** ENCRYPTION *****");
-		String encryptedMsg = simplifiedAdvancedEncryptionStandard.encrypt(msg);
+		String encryptedMsg = saes_ref.encrypt(msg);
 		System.out.println("Encrypted Message: "+encryptedMsg);
 
 		System.out.println("\n***** DECRYPTION *****");
-		String decryptedMsg = simplifiedAdvancedEncryptionStandard.decrypt(encryptedMsg);
+		String decryptedMsg = saes_ref.decrypt(encryptedMsg);
 		System.out.println("Decrypted Message: "+decryptedMsg);
 	}
 }
