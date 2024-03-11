@@ -30,9 +30,10 @@ def encrypt_transposition(text, key):
     return encrypted_text
 
 
-text = "Tejas Labde"
-key = "HACK"
+text = input("Enter the Plain text : ")
+key = input("Enter the Key : ")
 encrypted_text = encrypt_transposition(text, key)
+print("\n\tEncrypting the Plain Text using Colmunar Transposition!!\n")
 print("Encrypted Text:", encrypted_text)
 
 def decrypt_transposition(encrypted_text, key):
@@ -64,4 +65,5 @@ def decrypt_transposition(encrypted_text, key):
     return decrypted_text
 
 decrypted_text = decrypt_transposition(encrypted_text, key)
+print("\n\tDecrypting the Colmnar Transposed Cipher Text !!\n")
 print("Decrypted Text:", decrypted_text)
