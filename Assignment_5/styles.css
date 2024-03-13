@@ -1,0 +1,28 @@
+/* styles.css */
+.container {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 20px;
+}
+
+.container .prime, .container .alice, .container .shared {
+    width: 45%;
+}
+
+.container .prime, .container .shared {
+    text-align: center;
+}
+
+.container .alice {
+    width: 45%; /* Adjusted width for Alice's section */
+    text-align: left; /* Aligning text to the left */
+}
+
+.container .bob {
+    width: 45%; /* Adjusted width for Bob's section */
+    text-align: right; /* Aligning text to the right */
+}
+
+.container button {
+    margin-right: 50px; /* Adjust margin between buttons */
+}
