@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<head>
+    <title> Diffie Hellman Key Exchange Algorithm </title>
+</head>
+
+<body>
+    <h1 align="center"> Diffie Hellman Key Exchange Algorithm </h1>
+        <br><br>
+        <label for="primeinput"> Enter a Prime No. : </label>
+        <input type="text" id="primeinput"> <br> <br>
+        <label for="proot"> Enter its Primitive Root : </label>
+        <input type="text" id="proot"> <br> <br>
+        <label for="alice"> Enter Alice's Secret Key : </label>
+        <input type="text" id="alice"> <br> <br>
+        <label for="bob"> Enter Bob's Secret Key : </label>
+        <input type="text" id="bob"> <br> <br>
+        
+        <button onclick="public_generate()"> Generate Public Keys for Alice and Bob </button> <br><br>
+        
+        <label for="ya"> Alice's Public key is  : </label>
+        <input type="text" id="ya" readonly> <br> <br>
+        <label for="yb"> Bob's Public key is  : </label>
+        <input type="text" id="yb" readonly> <br> <br>
+        
+        <button onclick="generate_shared()">Compute Shared Session Key</button><br><br>
+        
+        <label for="kab1"> Alice's Shared Session key is  : </label>
+        <input type="text" id="kab1" readonly> <br> <br>
+         <label for="kab2"> Bob's Shared Session key is  : </label>
+        <input type="text" id="kab2" readonly> <br> <br>
+     
+     <script>
+        function public_generate()
+        {
+            const q=parseInt(document.getElementById('primeinput').value);
+            const a=parseInt(document.getElementById('proot').value);
+            const xa=parseInt(document.getElementById('alice').value);
+            const xb=parseInt(document.getElementById('bob').value);
+            const ya=power(a,xa,q);
+            const yb=power(a,xb,q);
+            
+            document.getElementById('ya').value = ya;
+            document.getElementById('yb').value = yb;
+        }
+        
+        function generate_shared()
+        {
+            const ya=parseInt(document.getElementById('ya').value);
+            const yb=parseInt(document.getElementById('yb').value);
+            const xa=parseInt(document.getElementById('alice').value);
+            const xb=parseInt(document.getElementById('bob').value);
+            const q=parseInt(document.getElementById('primeinput').value);
+            
+            const kab1=power(yb,xa,q);
+            const kab2=power(ya,xb,q);
+            
+            document.getElementById('kab1').value = kab1;
+            document.getElementById('kab2').value = kab2;
+        }
+        
+        function power(a,b,c)
+        {
+            if (b==1)
+                return a;
+            else
+                return (Math.pow(a, b) % c);
+        }
+     </script>
+</body>
