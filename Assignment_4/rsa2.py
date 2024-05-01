@@ -1,4 +1,5 @@
 import math
+import random
 
 def is_prime(num):
     if num <= 1:
@@ -14,11 +15,21 @@ def is_prime(num):
         i += 6
     return True
 
-def gcd(a,b):
+def gcd(a, b):
     if b == 0:
         return a
     else:
         return gcd(b, a % b)
+    
+def char_to_num(char):
+    if char == ' ':
+        return 0
+    return ord(char.lower()) - ord('a')+1
+
+def num_to_char(num):
+    if num==0:
+        return ' '
+    return chr((num-1)%26+ord('a'))
 
 p = int(input("Enter the 1st Prime No. : "))
 q = int(input("Enter the 2nd Prime No. : "))
@@ -33,11 +44,12 @@ if is_prime(p) and is_prime(q):
         phi_n = (p - 1) * (q - 1)
     print("Phi(n) =", phi_n)
 
-    e = int(input("Enter the value of e : "))
-    if gcd(e, phi_n) != 1:
-        print("Error: gcd(e, Phi(n)) is not 1. Please choose another value for e.")
-        exit()
-
+    e = random.randint(2,phi_n-1)
+    while gcd(e,phi_n)!=1:
+        e = random.randint(2,phi_n-1)
+        
+    print("Generated value of e is : ",e)
+    print("Calculating the value of d")
     d = pow(e, -1, phi_n)
     print("d =", d)
 
@@ -58,24 +70,32 @@ if is_prime(p) and is_prime(q):
             print(",", end=" ")
         else:
             print("}")
+            
+    message=input("Enter the plaintext message : ")
+    
+    #Encyption
+    encrypted_message = []
+    for char in message:
+        num = char_to_num(char)
+        encrypted_num = pow(num, e, n)
+        encrypted_message.append(encrypted_num)
+            
+    encrypted_characters = [num_to_char(num) for num in encrypted_message]
+    print("Encrypted message (characters) : ", ''.join(encrypted_characters))
+    
+    
+    #Decryption
+    decrypted_message=""
+    for encrypted_num in encrypted_message:
+        if encrypted_num == 0:  # Check for space character
+            decrypted_char = " "
+        else:
+            decrypted_num = pow(encrypted_num, d, n)
+            decrypted_char = num_to_char(decrypted_num)
+        decrypted_message += decrypted_char
 
-    plaintext = input("Enter the plaintext: ")
-
-    # Convert string to ASCII
-    plaintext_ascii = [ord(char) for char in plaintext]
-
-    print("\nPerforming Encryption of Plaintext M from the formula : C = M^e mod n\n")
-    # Encryption: C = M^e mod n
-    encrypted_message = [pow(char, e, n) for char in plaintext_ascii]
-    print("Encrypted message (C) =", encrypted_message)
-
-    print("\nPerforming Decryption of Ciphertext C from the formula : M = C^d mod n\n")
-    # Decryption: M = C^d mod n
-    decrypted_ascii = [pow(char, d, n) for char in encrypted_message]
-
-    # Convert ASCII to characters
-    decrypted_message = ''.join([chr(char) for char in decrypted_ascii])
-    print("Decrypted message (M) =", decrypted_message)
+        
+    print("Decrypted message : ",decrypted_message)
 
 else:
     print("One or both of the entered numbers are not prime.")
